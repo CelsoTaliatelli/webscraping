@@ -9,4 +9,5 @@
     $request = $client->request('GET','http://www.bairral.com.br');
 
     $status = $request->getStatusCode();
-    var_dump($status);
+    $content = $request->getContent();
+    var_dump($content);
