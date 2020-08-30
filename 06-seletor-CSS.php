@@ -9,5 +9,7 @@
 
 
 $crawler = $browser->request('GET','https://vitormattos.github.io/poc-lineageos-cellphone-list-statics//');
-$text = $crawler->filter('.title-page')->text();
-var_dump($text);
+$nomes = $crawler->filter('article .title')->each(function($node){
+   return $node->text();
+});
+print_r($nomes);
