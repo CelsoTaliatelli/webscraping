@@ -10,5 +10,17 @@
 
 $crawler = $browser->request('GET','https://vitormattos.github.io/poc-lineageos-cellphone-list-statics//');
 $totalPaginas = $crawler->filter('header')->text();
-$totalPaginas = preg_replace('/\D/','',$totalPaginas/10);
-print_r($totalPaginas);
+$totalPaginas = preg_replace('/\D/','',$totalPaginas);
+$totalPaginas = ceil($totalPaginas/10);
+
+$modelos = $crawler->filter('article .title')->each(function($node){
+   return $node->text();
+});
+for($i = 2; $i <= $totalPaginas; $i++){
+   
+   $crawler = $browser->request('GET','https://vitormattos.github.io/poc-lineageos-cellphone-list-statics//'.$i);
+   $modelos = array_merge($modelos,$crawler->filter('article .title')->each(function($node){
+      return $node->text();
+   }));
+}
+print_r($modelos);
